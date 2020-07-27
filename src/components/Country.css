@@ -1,0 +1,5 @@
+.country__image {
+    width: 100% !important;
+    height: 300px !important;
+    object-fit: contain;
+}
