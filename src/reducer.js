@@ -9,7 +9,7 @@ const reducer = (state = initialState, action) => {
             return { ...state, countries: action.payload.data }
         case "SEARCH_COUNTRY":
             //if (action.payload.query === null || action.payload.query.trim() === "") return state
-            return { ...state, searchResult: [...state.countries.filter((country) => country.name.startsWith(action.payload.query))] }
+            return { ...state, searchResult: [...state.countries.filter((country) => country.name.startsWith(action.payload.query) || country.name.toLowerCase().startsWith(action.payload.query))] }
         default: return state
     }
 }
