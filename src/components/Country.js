@@ -4,7 +4,7 @@ import {
     Card, CardContent, Typography,
     CardMedia, CardActions, Button,
     Table, TableHead, TableRow,
-    TableCell, TableBody, TableFooter,
+    TableCell, TableBody
 } from "@material-ui/core"
 import numeral from "numeral"
 
@@ -16,7 +16,6 @@ import { useStateValue } from '../StateProvider'
 
 function Country({ country }) {
     const [{ countries }] = useStateValue();
-
     const [openDialog, setOpenDialog] = useState(false)
 
     const handleOpenDialog = () => setOpenDialog(true)
@@ -36,13 +35,9 @@ function Country({ country }) {
                             key === "languages"
                                 ? country[key].map(country => country + " ")
                                 : (
-                                    key === "borders"
+                                    key === "borders" && key.length > 0
                                         ? country[key].map(border => countries.filter(country => country.alpha3Code === border)[0].name + " ")
-                                        : (
-                                            key === "latlng"
-                                                ? country[key].map((point) => point + " ")
-                                                : "not latlng"
-                                        )
+                                        : "-"
                                 )
                         }
                     </TableCell>
@@ -62,7 +57,11 @@ function Country({ country }) {
                                         ? numeral(country[key]).format("0,0")
                                         : country[key]
                                 )
-                                : country[key]
+                                : (
+                                    country[key] === ""
+                                        ? "-"
+                                        : country[key]
+                                )
                         }</TableCell>
                 </TableRow>
             )
@@ -79,7 +78,7 @@ function Country({ country }) {
                 <CardContent>
                     <Typography
                         gutterBottom
-                        variant="p">
+                        component="p">
                         {country.name}
                     </Typography>
                     <Typography
@@ -112,7 +111,6 @@ function Country({ country }) {
                         </TableRow>
                     </TableHead>
                     <TableBody>{renderRow}</TableBody>
-                    <TableFooter>{country.name}</TableFooter>
                 </Table>
             </CustomDialog>
         </div >
