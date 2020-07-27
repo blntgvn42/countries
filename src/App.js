@@ -63,7 +63,8 @@ function App() {
         onChange={handleCountrySearch}
         label="Search Country"
         fullWidth
-        variant="outlined" />
+        variant="outlined"
+        helperText={query ? searchResult.length + " results found" : ""} />
       {
         loading
           ? (
